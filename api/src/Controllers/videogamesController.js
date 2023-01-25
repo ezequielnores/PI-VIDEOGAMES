@@ -28,11 +28,10 @@ const getAllGames = async() => {
 const getGamesFromApi = async () => {
     let num = 1;  const endpoints = [];
 
-    while(num < 6){
+    while(num < 10){
         endpoints.push(`https://api.rawg.io/api/games?key=${API_KEY}&page=${num}`);
         num = num + 1;
     };
-
    const response = await Promise.all( endpoints.map((endpoint) => axios.get(endpoint) ))
             .then(response => response.reduce(  (acc, element) =>  acc = [ ...acc, ...element.data.results ], [] ));       
             
@@ -48,7 +47,7 @@ const getGamesFromDb = async () => {
             id: videogame.id,
             name: videogame.name,
             description: videogame.description,
-            rating: videogame.rating,
+            rating: parseFloat(videogame.rating),
             released: videogame.released,
             platform: videogame.platforms,
             genres: videogame.Genres.map(genre => genre.dataValues.name),
@@ -58,25 +57,54 @@ const getGamesFromDb = async () => {
     return response;
 };
 
-const getGameByName = async (name) => {
-        const videogamesByNameFromApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+const getGamesByName = async (name) => {
+        const gamesByName = await Promise.all([ getGamesByNameFromBd(name), getGamesByNameFromApi(name)])
+            .then(r => [ ...r[0], ...r[1] ]);
+                
+        return gamesByName.length > 0 ? gamesByName : 'Sorry, cant find that' ; 
+};
+
+const getGamesByNameFromApi = async (name) => {
+    const videogamesByNameFromApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
             .then( res => responseTransformer(res.data.results) );
 
-        const videogamesByNameFromDb = await Videogame.findAll({
-            where: {
-                name: {  [Op.like]: `%${name}%`  }
+    return videogamesByNameFromApi;
+}
+
+const getGamesByNameFromBd = async (name) => {
+
+    const videogamesByNameFromDb = await Videogame.findAll({
+        where: {
+            name: {  
+                [Op.iLike]: `%${name}%`  
             }
-        });
-    const response = [ ...videogamesByNameFromDb, ...videogamesByNameFromApi ]
-    return response.length === 0 ? 'Sorry, cant find that' : response ;
-};
+        },
+        include: { 
+            model: Genre,
+            attributes: [ 'name'],
+            through: {
+                attributes: []
+            }
+         }
+    })
+    .then(r => {
+        return r.map(obj => {
+            return {
+                ...obj.dataValues,
+                Genres: '' ,
+                genres: obj.dataValues.Genres.map(genre => genre.dataValues.name)
+            }
+        })
+    });
+    return videogamesByNameFromDb;
+}
 
 
 const getGameById = async ({ id }) => {
 
         if(! /\D/.test(id) ){ //string
             const requestById = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`).then(res => {
-                return {
+                return [{
                         id: res.data.id,
                         name: res.data.name,
                         rating: res.data.rating,
@@ -86,8 +114,9 @@ const getGameById = async ({ id }) => {
                         genre: res.data.genres.map(genre => genre.name),
                         description: res.data.description,
                         created: false
-                }
+                }];
             }).catch(err => 'Sorry, cant find that')
+            
             return requestById;
         }
 
@@ -113,7 +142,7 @@ const getGameById = async ({ id }) => {
                     created: videogame.created,
                 }
             });
-            return getByIdFromDb.length !== 0  ? getByIdFromDb : 'Sorry, cant find that';
+            return getByIdFromDb.length > 0  ? getByIdFromDb : 'Sorry, cant find that';
         };
         return 'Sorry, must entry a valid id';
 };
@@ -129,10 +158,13 @@ const postGame = async ({ name, description, released, rating, platforms, genre 
 };
 
 module.exports = {
-    getGameByName,
+    getGamesByName,
     getGameById,
     postGame,
     getAllGames,
     getGamesFromDb,
-    getGamesFromApi
+    getGamesFromApi,
+    getGamesByNameFromBd,
+    getGamesByNameFromApi,
+
 }

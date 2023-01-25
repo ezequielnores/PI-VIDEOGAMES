@@ -1,5 +1,14 @@
 .container-videogames{
     width: 100%;
     display: flex;
-    flex-wrap:wrap;
+
+    justify-content: center;
+    flex-direction: column;
+    
 };
+
+div.videogame{
+
+    display:flex;
+    flex-direction: row-reverse;
+}

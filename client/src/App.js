@@ -3,10 +3,11 @@ import { useEffect } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 import Home from './Components/Home/Home.jsx';
 import Landing from './Components/Landing/Landing.jsx';
-import SearchBar from './Components/SearchBar/SearchBar';
+// import SearchBar from './Components/SearchBar/SearchBar';
 import { useDispatch } from 'react-redux';
 import { getGames, getGenres } from './redux/actions';
 import Detail from './Components/Detail/Detail.jsx';
+import NavBar from './Components/NavBar/NavBar.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function App() {
       
       { pathname === '/' ? <Route exact path='/' component={ Landing } /> : null }
 
-      <Route path='/home' component={ SearchBar } />
+      <Route path='/home' component={ NavBar } />
 
       <Route exact path='/home' render={ () => <Home /> } />
 

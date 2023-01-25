@@ -1,13 +1,13 @@
 const { Router } = require('express');
 require('dotenv').config();
 const videogamesRouter = Router();
-const {getGameByName, getGameById, postGame, getAllGames, getGamesFromApi } = require('../Controllers/videogamesController');
+const {getGamesByName, getGameById, postGame, getAllGames, getGamesByNameFromApi, getGamesByNameFromBd } = require('../Controllers/videogamesController');
 
 videogamesRouter.get('/', async (req, res) => {
     try {
         const { name } = req.query;
         if(name){
-            const videoGamesByName = await getGameByName(name);
+            const videoGamesByName = await getGamesByName(name);
             res.status(200).send(videoGamesByName)
         } else{
             const allVideogames = await getAllGames();
