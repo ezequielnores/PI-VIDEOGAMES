@@ -28,7 +28,7 @@ const getAllGames = async() => {
 const getGamesFromApi = async () => {
     let num = 1;  const endpoints = [];
 
-    while(num < 10){
+    while(num < 6){
         endpoints.push(`https://api.rawg.io/api/games?key=${API_KEY}&page=${num}`);
         num = num + 1;
     };

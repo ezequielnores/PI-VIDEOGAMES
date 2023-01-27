@@ -5,7 +5,15 @@ export const GET_GAME_BY_ID = 'GET_GAME_BY_ID';
 export const GET_GAME_BY_NAME = 'GET_GAME_BY_NAME'; 
 export const DELETE_STATE_BY_ID = 'DELETE_STATE_BY_ID'; 
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'; 
-export const FILTER_BY_EXISTING_OR_CREATED = 'FILTER_BY_EXISTING_OR_CREATED'; 
+export const FILTER_RATING_ASCENDENT = 'FILTER_RATING_ASCENDENT'; 
+export const FILTER_RATING_DECREMENT = 'FILTER_RATING_DECREMENT'; 
+export const SHOW_ALL = 'SHOW_ALL'; 
+export const FILTER_BY_EXISTING = 'FILTER_BY_EXISTING'; 
+export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'; 
+export const FILTER_ALPHABETIC_DECREMENT = 'FILTER_ALPHABETIC_DECREMENT'; 
+export const FILTER_ALPHABETIC_ASCENDENT = 'FILTER_ALPHABETIC_ASCENDENT'; 
+
+
 
 export const getGames = () => {
      return async function(dispatch){
@@ -44,6 +52,31 @@ export const filterByGenre = (genre_name) => {
 };
 
 
-export const filterByExistingOrCreated = (option) => {
-    return { type: FILTER_BY_EXISTING_OR_CREATED, payload: option }
+export const filterByCreated = () => {
+    return { type: FILTER_BY_CREATED };
+};
+export const filterByExisting = () => {
+    return { type: FILTER_BY_EXISTING };
+};
+export const showAll = () => {
+    return { type: SHOW_ALL };
+};
+
+
+
+
+export const filterByRatingDecrement = () => {
+    return { type: FILTER_RATING_DECREMENT };
+};
+export const filterByRatingAscendent = () => {
+    return { type: FILTER_RATING_ASCENDENT };
+};
+
+
+
+export const filterAlphabeticDecrement = () => {
+    return { type: FILTER_ALPHABETIC_DECREMENT };
+};
+export const filterAlphabeticAscendent = () => {
+    return { type: FILTER_ALPHABETIC_ASCENDENT };
 };

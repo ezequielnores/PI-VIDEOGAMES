@@ -65,6 +65,7 @@ const VideogamesContainer = ({ index, setIndex }) => {
                                     genres={videogame.genres} 
                                     imgn={videogame.img}
                                     key={videogame.id}
+                                    rating={videogame.rating}
                                     />
                         })
                     }
