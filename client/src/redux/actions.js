@@ -12,13 +12,16 @@ export const FILTER_BY_EXISTING = 'FILTER_BY_EXISTING';
 export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'; 
 export const FILTER_ALPHABETIC_DECREMENT = 'FILTER_ALPHABETIC_DECREMENT'; 
 export const FILTER_ALPHABETIC_ASCENDENT = 'FILTER_ALPHABETIC_ASCENDENT'; 
+export const GET_PLATFORMS = 'GET_PLATFORMS'; 
+export const CLEAN_STATE_FILTERED = 'CLEAN_STATE_FILTERED'; 
 
 
 
 export const getGames = () => {
      return async function(dispatch){
         await axios.get('http://localhost:3001/videogames')
-            .then(response => dispatch({ type: GET_GAMES , payload: response.data }));
+            .then(response => dispatch({ type: GET_GAMES , payload: response.data }))
+            .catch(error => dispatch({ type: GET_GAMES , payload: `Error: ${error.message}, please reload the page` }))
     };
 };
 
@@ -80,3 +83,8 @@ export const filterAlphabeticDecrement = () => {
 export const filterAlphabeticAscendent = () => {
     return { type: FILTER_ALPHABETIC_ASCENDENT };
 };
+
+export const cleanStateFilter = () => {
+    return { type: CLEAN_STATE_FILTERED };
+}
+

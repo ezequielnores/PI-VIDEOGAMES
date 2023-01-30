@@ -1,7 +1,7 @@
 const { Router } = require('express');
 require('dotenv').config();
 const videogamesRouter = Router();
-const {getGamesByName, getGameById, postGame, getAllGames, getGamesByNameFromApi, getGamesByNameFromBd } = require('../Controllers/videogamesController');
+const {getGamesByName, getGameById, postGame, getAllGames } = require('../Controllers/videogamesController');
 
 videogamesRouter.get('/', async (req, res) => {
     try {
@@ -36,6 +36,9 @@ try {
 } catch (error) {
     res.status(400).send(error.message);
 }
-})
+});
+
+
+
 
 module.exports = videogamesRouter;

@@ -1,7 +1,7 @@
 import React from "react";
 import './SearchBar.css';
 import { useDispatch } from "react-redux";
-import { getGameByName } from "../../redux/actions.js";
+import { getGameByName, cleanStateFilter } from "../../redux/actions.js";
 
 const SearchBar = ({ index, setIndex }) => {
     const dispatch = useDispatch();
@@ -15,15 +15,16 @@ const SearchBar = ({ index, setIndex }) => {
     const SearchHandler = (e) => {
         e.preventDefault();
         setIndex(prev => 0)
+        dispatch(cleanStateFilter());
         dispatch(getGameByName(input));
         setInput(prev => '');
     };
 
     return (
         <div>
-            <form onSubmit={SearchHandler}>
+            <form >
                 <input type="text" value={input} onChange={inputChangeHandler}/>
-                <input type="submit" name='Search' />
+                <input type="submit" name='Search' onClick={SearchHandler} />
             </form>
             
         </div>

@@ -1,0 +1,13 @@
+.div_container{
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+};
+
+.form_inputs{
+    background-color: blue;
+};
+
+.date_only{
+    width: 5%;    
+};

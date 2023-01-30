@@ -11,7 +11,9 @@ import {
     FILTER_BY_EXISTING, 
     SHOW_ALL,
     FILTER_ALPHABETIC_ASCENDENT,
-    FILTER_ALPHABETIC_DECREMENT 
+    FILTER_ALPHABETIC_DECREMENT,
+    GET_PLATFORMS,
+    CLEAN_STATE_FILTERED
 } from './actions';
 
 const initialState = {
@@ -20,6 +22,8 @@ const initialState = {
     genres: [],
     getByName: [],
     getById: [],
+    platforms: [],
+    namesGames: [],
 
 };
 
@@ -101,12 +105,22 @@ const reducer = (state = initialState, action) => {
     
     switch (action.type) {
 
-        case GET_GAMES: return {
+        case GET_GAMES: {
+            const cleaned = [];
+            if(typeof(action.payload) !== 'string'){
+                const allPlatforms = action.payload.reduce(( acc, el ) => acc = [...acc, ...el.platforms], []);
+                allPlatforms.forEach( (platform) => {
+                    if(! cleaned.includes(platform)) cleaned.push(platform)
+                });
+            };            
+            return {
             ...state,
             games: action.payload,
             filtered: divideStateForPagination(action.payload),
+            platforms: cleaned,
+            namesGames: action.payload.map(game => game.name.toLowerCase())
         };
-
+}
         case GET_GENRES: return {
             ...state,
             genres: action.payload,
@@ -186,6 +200,23 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 filtered: divideStateForPagination(order)
             };
+        };
+
+        case GET_PLATFORMS: {
+            const cleaned = [];
+            const allPlatforms = state.games.reduce(( acc, el ) => acc = [...acc, ...el.platforms] ,[]);
+            allPlatforms.forEach(platform => {
+                if(! cleaned.includes(platform)) cleaned.push(platform)
+            });
+            return {
+                ...state,
+                platforms: cleaned
+            };
+        };
+
+        case CLEAN_STATE_FILTERED: return {
+            ...state,
+            filtered: []
         };
 
         default: return {

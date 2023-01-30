@@ -13,7 +13,7 @@ const responseTransformer = (array) => {
             rating: videogame.rating,
             img: videogame.background_image,
             released: videogame.released,
-            // platforms: videogame.platforms.map(obj => obj.platform.name),
+            platforms: videogame.platforms.map(obj => obj.platform.name),
             genres: videogame.genres.map(genre => genre.name),
             created: false
         }
@@ -47,9 +47,9 @@ const getGamesFromDb = async () => {
             id: videogame.id,
             name: videogame.name,
             description: videogame.description,
-            rating: parseFloat(videogame.rating),
+            rating: videogame.rating,
             released: videogame.released,
-            platform: videogame.platforms,
+            platforms: videogame.platforms,
             genres: videogame.Genres.map(genre => genre.dataValues.name),
             created: videogame.created,
         }
@@ -137,7 +137,7 @@ const getGameById = async ({ id }) => {
                     description: videogame.description,
                     rating: videogame.rating,
                     released: videogame.released,
-                    platform: videogame.platforms,
+                    platforms: videogame.platforms,
                     genres: videogame.Genres.map(genre => genre.dataValues.name),
                     created: videogame.created,
                 }
@@ -152,19 +152,17 @@ const postGame = async ({ name, description, released, rating, platforms, genre 
     if(typeof(name) !== 'string' || typeof(description) !== 'string') return 'Sorry, name, description, must be strings';
     if(Array.isArray(platforms) === false) return 'Sorry, platforms must be an array';
 
-    const posted = await Videogame.create({ name, description, released, platforms, rating }).catch(err => 'Sorry, it is already created');
-    if(typeof(posted) !== 'string') posted.addGenres(genre);
+    const posted = await Videogame.create({ name, description, released, platforms, rating })
+        .catch(error => `Error: ${error.message}`);
+    if(typeof(posted) !== 'string' && genre !== null) posted.addGenres(genre);
     return posted;
 };
+
 
 module.exports = {
     getGamesByName,
     getGameById,
     postGame,
     getAllGames,
-    getGamesFromDb,
-    getGamesFromApi,
-    getGamesByNameFromBd,
-    getGamesByNameFromApi,
 
 }
