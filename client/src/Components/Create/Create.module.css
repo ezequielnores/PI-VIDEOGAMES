@@ -93,3 +93,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+
+.show_error{
+    color: red;
+}

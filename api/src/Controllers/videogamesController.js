@@ -158,11 +158,21 @@ const postGame = async ({ name, description, released, rating, platforms, genre 
     return posted;
 };
 
+const deleteGame = async ( { id } ) => {
+
+    const deleted = await Videogame.destroy({
+        where: { id: id },
+    }) 
+    .catch(error => `Error: ${error.message}`);
+
+    return typeof deleted === 'number' ? 'Deleted succesfully' : deleted ;
+};
+
 
 module.exports = {
     getGamesByName,
     getGameById,
     postGame,
     getAllGames,
-
-}
+    deleteGame
+};

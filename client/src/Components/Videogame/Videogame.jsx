@@ -3,7 +3,7 @@ import style from './Videogame.module.css';
 import { Link } from 'react-router-dom';
 
 const Videogame = ({ id, name, genres, imgn, rating }) => {
-    
+    console.log(imgn);
     return (
         <Link className={style.link_container} to={`/home/detail/${id}`}>
 

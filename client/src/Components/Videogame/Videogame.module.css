@@ -1,6 +1,6 @@
 .div_videogame_card{
     
-    width: 21em;
+    width: 18em;
     display: flex;
     flex-direction: column;
     background-color: #282A3A;
@@ -22,7 +22,7 @@
 }
 
 .imagen_home{
-    width: 21em;
+    width: 18em;
     /* width: 370px; */
     
 }

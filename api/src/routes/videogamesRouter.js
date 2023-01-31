@@ -1,7 +1,7 @@
 const { Router } = require('express');
 require('dotenv').config();
 const videogamesRouter = Router();
-const {getGamesByName, getGameById, postGame, getAllGames } = require('../Controllers/videogamesController');
+const {getGamesByName, getGameById, postGame, deleteGame, getAllGames } = require('../Controllers/videogamesController');
 
 videogamesRouter.get('/', async (req, res) => {
     try {
@@ -38,7 +38,15 @@ try {
 }
 });
 
-
+videogamesRouter.delete('/:id', async (req,res) => {
+    try {
+        const deleted = await deleteGame(req.params);
+        res.status(200).json(deleted);
+        
+    } catch (error) {
+        res.status(400).send(`Error: ${error.message}`);
+    }
+});
 
 
 module.exports = videogamesRouter;

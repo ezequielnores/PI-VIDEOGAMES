@@ -30,7 +30,6 @@ const VideogamesContainer = ({ index, setIndex }) => {
     };
 
 
-
     if( typeof( stateRedux ) === 'string' ){
         return (
             <div className={style.other_options} >

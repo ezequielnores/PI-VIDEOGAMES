@@ -16,7 +16,7 @@ const Create = () => {
     const platformas = useSelector(state => state.platforms);
     const namesGames = useSelector(state => state.namesGames);
     
-    const[disableButton, setDisableButton] = React.useState(true)
+    
 
     const[date, setDate] = React.useState({
         year: '',
@@ -47,35 +47,16 @@ const Create = () => {
         platforms: ""
     });
     
-    const onSubmitHandler = () => {
-
-                if( form.name.length === 0 || form.description.length === 0  || form.released.length === 0 || form.genre.length === 0 || form.platforms.length === 0){
-                    alert('Incomplete Form');
-                }
-                else{
-                    axios.post('http://localhost:3001/videogames', {
-                        ...form,
-                        released: form.released.split('-').reverse().join('/'),
-                        genre: form.genre.map(obj => obj.id),
-                        rating: parseFloat(form.rating)
-                    })
-                    .then(() =>  {
-                        alert(`${form.name} were created succesfully`)
-                        dispatch(getGames());
-                        setForm({ name: "", description:"", released: "", rating: "0.1", genre:[], platforms:[] });
-                        setDate({ day: "", year: "", month:"" });
-                        setSelected({ platforms:"", genres:""});
-                    }).catch(error => alert(`Error: ${error.message}`));
-        
-        };
-    };
-
-
 
 
 
     const handleSelectGenres = (e) => {
         setSelected({ ...selected, genres: e.target.value })
+
+        if(e.target.value === 'Genres'){
+            return null;
+        };
+
         const{ id, name } = { id: e.target.value.split(',')[0], name: e.target.value.split(',')[1] }
         const genres = form.genre.map(obj => obj.name); // crea una lista solo con los nombres de los generos
 
@@ -85,17 +66,23 @@ const Create = () => {
                 genre: [...form.genre, { id: parseInt(id), name }]
             });
             setError({...error, genre: ""});
-            handleCreateButton({...error, genre: ""});
+            // handleCreateButton({...error, genre: ""});
 
         } else {
             setError({ ...error, genre: `${name} is already selected` });
-            handleCreateButton({ ...error, genre: `${name} is already selected` });
+            // handleCreateButton({ ...error, genre: `${name} is already selected` });
         };
         
     };
     
     const platformsHandler = (e) => {
+
         setSelected({ ...selected, platforms: e.target.value });
+
+        if(e.target.value === 'Platforms'){
+            return null;
+        };
+        
         if(! form.platforms.includes(e.target.value) ){
             setForm({
                 ...form,
@@ -112,7 +99,7 @@ const Create = () => {
         setForm({ ...form, [event.target.name]: event.target.value });
         validateForm({ ...form, [event.target.name]: event.target.value }, event.target.name);
 
-        handleCreateButton(error);
+        // handleCreateButton(error);
     };
 
     const dateHandler = (e) => {
@@ -121,7 +108,7 @@ const Create = () => {
         if(date.day && date.year && date.month) setForm({...form, released: `${date.day}/${date.month}/${date.year}`});
 
         validateForm({ ...date, [e.target.name]: e.target.value }, 'date');
-        handleCreateButton({ ...error });
+        // handleCreateButton({ ...error });
     };
 
 
@@ -135,7 +122,38 @@ const Create = () => {
 
 
 
-   
+    const onSubmitHandler = () => {
+        const condition = handleCreateButton(error); 
+        if( condition === true){
+            alert('Please fill the fields with adequate information');
+            return condition;
+        }
+
+        if( form.name.length === 0 || form.description.length === 0  || form.released.length === 0 || form.genre.length === 0 || form.platforms.length === 0){
+            alert('Incomplete Form');
+            return condition; 
+        }
+        else{
+            axios.post('http://localhost:3001/videogames', {
+                ...form,
+                released: form.released.split('-').reverse().join('/'),
+                genre: form.genre.map(obj => obj.id),
+                rating: parseFloat(form.rating)
+            })
+            .then(() =>  {
+                alert(`${form.name} were created succesfully`)
+
+                dispatch(getGames());
+
+                setForm({ name: "", description:"", released: "", rating: "0.1", genre:[], platforms:[] });
+                setDate({ day: "", year: "", month:"" });
+                setSelected({ platforms:"", genres:""});
+                setError({ ...error, platforms:"", genre:"" });
+
+            }).catch(error => alert(`Error: ${error.message}`));
+
+        };
+    };
 
     const validateForm = (form, name) => {
     
@@ -180,23 +198,27 @@ const Create = () => {
             if(!day || !month || !year) condition = true;
             
             if(condition === true) setError((prev) => {
-                return { ...error, released: 'invalid Date' }
+                return { ...error, released: 'Invalid Date' }
             })
             else setError((prev) => {
                 return { ...error, released: '' }
             });
         };
-        handleCreateButton({ ...error });
-    };   
+        // handleCreateButton({ ...error });
+    };
 
     const handleCreateButton = (error) => {
         let condition = false;
         
         for (const key in error) {
-            if(error[key] !== '') condition = true;
+            if (key !== 'platforms' && key !== 'genre' ){
+                if(error[key] !== ''  ) {
+                    condition = true;
+                };
+            };
         };
 
-        setDisableButton((prev) => condition);
+        return condition;
     };
 
     return (
@@ -209,13 +231,14 @@ const Create = () => {
                                 <label  htmlFor="name"> Name: </label>
                                 <input className={style.input_name_description} name='name' placeholder="name" type="text" value={form.name} onChange={ handleFormInputs } />
                             </div>
-                            {error.name}
+                            <div className={style.show_error}> {error.name} </div>
 
                             <div>
                                 <label htmlFor="description">Description: </label>
                                 <input className={style.input_name_description}  name='description' placeholder="description" type="text" value={form.description} onChange={ handleFormInputs } />
                             </div>
-                            { error.description }
+                            <div className={style.show_error}> { error.description } </div>
+                            
 
                             <div>
                                 <label htmlFor="released">Released: </label>
@@ -223,13 +246,15 @@ const Create = () => {
                                 <input className={style.date_only} type="number" placeholder="mm" name="month" value={date.month} onChange={dateHandler} min='1' max='12' /> / 
                                 <input className={style.date_only} type="number" placeholder="yyyy" name="year" value={date.year} onChange={dateHandler} min='1950' max='2023' />
                             </div>
-                            { error.released }
+                            <div className={style.show_error}> { error.released } </div>
+                            
 
                             <div>
                                 <label htmlFor="rating">Rating: </label>
                                 <input className={style.rating} name='rating' type="range" value={form.rating}  min="0.1" max="5" step='0.1' onChange={ handleFormInputs } />   <div>{ form.rating } ⭐</div>
                             </div>
-                            { error.rating }
+                            <div className={style.show_error}> { error.rating } </div>
+                            
 
                     </form>
                 </div>
@@ -237,36 +262,40 @@ const Create = () => {
 
 
                 <div className={style.div_subcontainer}>
-                        <select value={selected.genres}  className={style.select_options}  name="genres" id="genres" onChange={handleSelectGenres} >
-                            <option value="Genres" id ='genresDefault'  > Genres </option>
-                            {
-                                stateGenres.map((genre) => <option value={[genre.id, genre.name]} key={genre.id} > { genre.name } </option> )
-                            }
-                        </select>
+                            <select value={selected.genres}  className={style.select_options}  name="genres" id="genres" onChange={handleSelectGenres} >
+                                <option value="Genres" id ='genresDefault'  > Genres </option>
+                                {
+                                    stateGenres.map((genre) => <option value={[genre.id, genre.name]} key={genre.id} > { genre.name } </option> )
+                                }
+                            </select>
 
-                        <div>{ error.genre }</div>  
+                            <div className={style.show_error}>{ error.genre }</div>  
+
                             <div className={style.container_selecteds}>
                                 { form.genre.length !== 0 && form.genre.map((genre) => <div className={style.array_selected} key={genre.id}  > {genre.name} <button className={style.btn_close} onClick={() => deleteGenres(genre.id)}>X</button> </div>) }
                             </div>
                 </div> 
 
+
+
                 <div className={style.div_subcontainer}>
-                        <select value={selected.platforms} className={style.select_options} name="platforms" id="platforms" onChange={platformsHandler} >
-                            <option value="Platforms">Platforms</option>
-                            {
-                                platformas.map(platform => <option key={platform} value={platform} > { platform } </option>)
-                            }
-                        </select>
-                            <div>{error.platforms}</div>
+
+                            <select value={selected.platforms} className={style.select_options} name="platforms" id="platforms" onChange={platformsHandler} >
+                                <option value="Platforms">Platforms</option>
+                                {
+                                    platformas.map(platform => <option key={platform} value={platform} > { platform } </option>)
+                                }
+                            </select>
+
+                            <div className={style.show_error}>{error.platforms}</div>
 
                             <div className={style.container_selecteds}>
                                 { form.platforms.map(platform => <div className={style.array_selected} key={platform} > {platform}  <button className={style.btn_close}  onClick={() => deletePlatform(platform)} >X</button> </div>) }
                             </div>
                 </div>
-
+                            
                 <div className={style.div_subcontainer}>
-                        <button className={style.btn_create} disabled={ disableButton } onClick={onSubmitHandler} > Create </button>
-                        <div> { error.incomplete } </div>
+                        <button className={style.btn_create} onClick={onSubmitHandler} > Create </button>
                 </div>
 
         </div>
