@@ -8,6 +8,7 @@ import { getGames, getGenres } from './redux/actions';
 import Detail from './Components/Detail/Detail.jsx';
 import NavBar from './Components/NavBar/NavBar.jsx';
 import Create from './Components/Create/Create';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,12 +19,13 @@ function App() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const { pathname } = useLocation();
-
+    // const { pathname } = useLocation();
+    const location = useLocation();
+    console.log(location);
   return (
     <div className="App">
       
-      { pathname === '/' ? <Route exact path='/' component={ Landing } /> : null }
+      { location.pathname === '/' ? <Route exact path='/' component={ Landing } /> : null }
 
       <Route path='/home' component={ NavBar } />
 
@@ -32,6 +34,8 @@ function App() {
       <Route exact path='/home/detail/:id' render={( { match } ) => <Detail  id={ match.params.id } />} />
 
       <Route exact path='/home/create' component={Create} />
+
+      <Route path='/home' render={() => <Footer />} />
       
     </div>
   );

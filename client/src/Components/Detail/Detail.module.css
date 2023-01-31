@@ -1,0 +1,45 @@
+.go_back{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;
+    border: none;
+}
+
+.other_options{
+    background-color: #010409;
+    color: #f0f6fc;
+    padding: 20px;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.go_back:hover{
+    background-color: #3e86f1;
+    cursor: pointer;
+}
+
+.img{
+    width: 600px;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.detail_container{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: #010409;
+    color: #f0f6fc;
+}
+
+.div_information{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    width: 50%;
+}

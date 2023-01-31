@@ -1,0 +1,26 @@
+.input_search{
+    padding-top: 0;
+    padding-bottom: 0;
+    padding: 5px;
+    font-size: 18px;
+    background-color: #282A3A;
+    color: #f0f6fc;
+    border-radius: 6px;
+}
+
+.btn_search{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;
+}
+
+.btn_search:hover{
+    background-color: #3e86f1;
+    cursor: pointer;
+}
+
+.input_search::placeholder{
+    font-size: 18px;
+}

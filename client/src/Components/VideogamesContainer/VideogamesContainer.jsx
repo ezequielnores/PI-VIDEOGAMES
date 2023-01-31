@@ -1,5 +1,5 @@
 import React from "react";
-import './VideogamesContainer.css';
+import style from './VideogamesContainer.module.css';
 import Videogame from "../Videogame/Videogame.jsx";
 import { useSelector } from 'react-redux';
 
@@ -29,34 +29,30 @@ const VideogamesContainer = ({ index, setIndex }) => {
         }
     };
 
+
+
     if( typeof( stateRedux ) === 'string' ){
         return (
-            <div>
+            <div className={style.other_options} >
                 <h2>{ stateRedux }</h2>
             </div>
         )
     };
 
-    if(stateRedux.length === 0){
+    if(stateRedux.length === 0 && Array.isArray(stateRedux)){
         return (
-            <div>
+            <div className={style.other_options}>
                 <h2>Wait a second please</h2>
             </div>
         )
     };
 
-    if(stateRedux.length > 0){
+    if(stateRedux.length > 0 && Array.isArray(stateRedux)){
         return (
-            <div className="container-videogames">                
-                <div>
-                    { index > 1 ?   <button onClick={() => paginationHandler('1')} > 1... </button>  :  null}{'<--'}
-                    {  index === 0  ? null  : <button onClick={() => paginationHandler('-')} > {'<'} back </button>   }
-                            <button> { index + 1 } </button>
-                    {  index < stateRedux.length -1 ?  <button onClick={() => paginationHandler('+')} > next {'>'} </button> : null  }{'-->'}
-                   { stateRedux.length - 2 > index ?   <button onClick={() => paginationHandler('-1')} >...{stateRedux.length}</button> : null }
-                </div>
+            <div className={style.div_all_videogames_container}>   
 
-                <div className="videogame" >
+
+                <div className={style.container_videogames} >
                     {
                         stateRedux[index].map((videogame) => {
                             return <Videogame 
@@ -69,6 +65,16 @@ const VideogamesContainer = ({ index, setIndex }) => {
                                     />
                         })
                     }
+                </div>
+
+                <div className={style.btn_pagination_container}>
+
+                    <button className={style.btn_pagination} onClick={() => paginationHandler('1')} > 1 </button> ......
+                        {  index === 0  ? null  : <button className={style.btn_pagination} onClick={() => paginationHandler('-')} > back </button>   }
+                            <button disabled={true} className={style.btn_pagination} > { index + 1 } </button>
+                        {  index < stateRedux.length -1 ?  <button className={style.btn_pagination} onClick={() => paginationHandler('+')} > next </button> : null  }{'......'}
+                    <button className={style.btn_pagination} onClick={() => paginationHandler('-1')} >{stateRedux.length}</button>
+
                 </div>
                 
             </div>

@@ -1,0 +1,29 @@
+.nav_container{
+    background-color: #282A3A;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+    color: #f0f6fc;
+    
+}
+
+h1{
+    margin: 0px;
+}
+
+.option_menu{
+    text-decoration: none;
+    color: #f0f6fc;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.option_menu:hover{
+    background-color: black;
+}

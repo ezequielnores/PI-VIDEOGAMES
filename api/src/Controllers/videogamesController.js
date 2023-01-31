@@ -22,7 +22,7 @@ const responseTransformer = (array) => {
 
 const getAllGames = async() => {
     const response = await Promise.all([ getGamesFromDb(), getGamesFromApi()])
-    return response[0].length === 0 ? response[1] : [ ...response[0], ...response[1] ];
+    return response[0].length === 0 ? response[1] : [ ...response[1], ...response[0] ];
 };
 
 const getGamesFromApi = async () => {
@@ -138,7 +138,7 @@ const getGameById = async ({ id }) => {
                     rating: videogame.rating,
                     released: videogame.released,
                     platforms: videogame.platforms,
-                    genres: videogame.Genres.map(genre => genre.dataValues.name),
+                    genre: videogame.Genres.map(genre => genre.dataValues.name),
                     created: videogame.created,
                 }
             });

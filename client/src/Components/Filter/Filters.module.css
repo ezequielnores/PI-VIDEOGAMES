@@ -1,0 +1,26 @@
+.all_select{
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+   
+}
+
+.btn_all_games{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;
+    border: none;
+}
+
+.btn_all_games:hover{
+    background-color: #3e86f1;
+    cursor: pointer;
+}
+
+select{
+    color: #f0f6fc;
+    background-color: #282A3A;
+    border: 1px solid grey;
+}

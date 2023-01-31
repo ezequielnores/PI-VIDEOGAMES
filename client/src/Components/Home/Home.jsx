@@ -1,21 +1,29 @@
 import React from "react";
-import './Home.css';
+import style from './Home.module.css';
 import VideogamesContainer from "../VideogamesContainer/VideogamesContainer.jsx";
 import SearchBar from "../SearchBar/SearchBar";
-import { useDispatch } from "react-redux";
-import { showAll } from "../../redux/actions";
 import Filters from "../Filter/Filters";
 
 const  Home = () => {
-    const dispatch = useDispatch();
+   
     const[index, setIndex] = React.useState(0);   
     
+    React.useEffect(() => {
+        document.title = 'Home';
+      }, []);
+
         return (
-            <div> 
-                <button onClick={() => dispatch(showAll())}>Show all games</button>
-                <SearchBar  index={index} setIndex={setIndex} />
-                <Filters index={index} setIndex={setIndex}/>
-                <VideogamesContainer index={index} setIndex={setIndex}  />
+            <div className={style.home_container}> 
+            
+                <div className={style.div_filters_container}>
+                    <Filters index={index} setIndex={setIndex}/>
+                    <SearchBar  index={index} setIndex={setIndex} />
+                </div>
+
+                    <hr  style={{ color: "red", backgroundColor: "#161b22", height: 2, border: 'none' }}  />
+
+                    <VideogamesContainer index={index} setIndex={setIndex}  />
+
             </div>
         );
 };

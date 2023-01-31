@@ -1,13 +1,86 @@
 .div_container{
-    background-color: green;
+    background-color: #010409;
     display: flex;
     flex-direction: row;
-};
+    height: 600px;
+}
 
-.form_inputs{
-    background-color: blue;
-};
+.div_subcontainer{
+    width: 25%;
+    color: #f0f6fc;
+    padding: 5px;
+}
+
+.input_name_description{
+    padding-top: 0;
+    padding-bottom: 0;
+    padding: 5px;
+    font-size: 18px;
+    background-color: #282A3A;
+    color: #f0f6fc;
+    border-radius: 6px;
+}
 
 .date_only{
-    width: 5%;    
-};
+    padding-top: 0;
+    padding-bottom: 0;
+    padding: 5px;
+    font-size: 18px;
+    background-color: #282A3A;
+    color: #f0f6fc;
+    border-radius: 6px;
+    width: 60px;
+}
+
+.date_only::placeholder{
+    font-size: 18px;
+}
+
+.input_name_description::placeholder{
+    font-size: 18px;
+}
+
+.btn_create{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;
+}
+
+.btn_create:hover{
+    background-color: #3e86f1;
+    cursor: pointer;
+}
+
+
+.select_options{
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+
+}
+
+.array_selected{
+    background-color: #282A3A;
+    width: 160px;
+    padding: 5px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 8px;
+}
+
+.btn_close{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.container_selecteds{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

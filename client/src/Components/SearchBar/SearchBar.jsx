@@ -1,5 +1,5 @@
 import React from "react";
-import './SearchBar.css';
+import style from './SearchBar.module.css';
 import { useDispatch } from "react-redux";
 import { getGameByName, cleanStateFilter } from "../../redux/actions.js";
 
@@ -23,8 +23,8 @@ const SearchBar = ({ index, setIndex }) => {
     return (
         <div>
             <form >
-                <input type="text" value={input} onChange={inputChangeHandler}/>
-                <input type="submit" name='Search' onClick={SearchHandler} />
+                <input className={style.input_search } placeholder="Name" type="text" value={input} onChange={inputChangeHandler}/>
+                <input className={style.btn_search} type="submit" name='Search' value='Search' onClick={SearchHandler} />
             </form>
             
         </div>
