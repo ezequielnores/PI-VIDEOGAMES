@@ -33,7 +33,7 @@ const Filters = ({ index, setIndex }) => {
     };
 
     const filterByExistent = (event) => {
-        setSelected({ ...selected, filter_existing: event.target.value });
+        setSelected({  filter_existing: event.target.value, filter_order:"", genres:"" });
         
         switch (event.target.value) {
             case 'CREATED': return dispatch( filterByCreated() ); 

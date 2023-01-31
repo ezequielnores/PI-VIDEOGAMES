@@ -227,7 +227,7 @@ const Create = () => {
 
                             <div>
                                 <label htmlFor="rating">Rating: </label>
-                                <input name='rating' type="range" value={form.rating}  min="0.1" max="5" step='0.1' onChange={ handleFormInputs } />   <div>{ form.rating } ⭐</div>
+                                <input className={style.rating} name='rating' type="range" value={form.rating}  min="0.1" max="5" step='0.1' onChange={ handleFormInputs } />   <div>{ form.rating } ⭐</div>
                             </div>
                             { error.rating }
 
