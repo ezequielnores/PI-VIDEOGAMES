@@ -125,7 +125,7 @@ const Create = () => {
     const onSubmitHandler = () => {
         const condition = handleCreateButton(error); 
         if( condition === true){
-            alert('Please fill the fields with adequate information');
+            alert('Error: Please read the error message and try fulfil the requirements');
             return condition;
         }
 
@@ -165,9 +165,9 @@ const Create = () => {
                 return { ...error, [name]: `${form[name]} already exist` };
             });
             
-            if(/\W/.test( form[name].split(' ').join('') ))   setError((prev) => {
-                return { ...error, name: 'Sorry, simbols are not allowed' } // BORRA ESPACIOS, Y COMPRUEBA SI CONTIENE SIMBOLOS 
-            });
+            // if(/\W/.test( form[name].split(' ').join('') ))   setError((prev) => {
+            //     return { ...error, name: 'Sorry, simbols are not allowed' } // BORRA ESPACIOS, Y COMPRUEBA SI CONTIENE SIMBOLOS 
+            // });
 
             if(form[name] === "") setError((prev) => { 
                 return{  ...error, name: 'Name is a required field' };

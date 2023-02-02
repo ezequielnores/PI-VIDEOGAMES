@@ -4,9 +4,9 @@ import VideogamesContainer from "../VideogamesContainer/VideogamesContainer.jsx"
 import SearchBar from "../SearchBar/SearchBar";
 import Filters from "../Filter/Filters";
 
-const  Home = () => {
+const  Home = ({ index, setIndex }) => {
    
-    const[index, setIndex] = React.useState(0);   
+     
     
     React.useEffect(() => {
         document.title = 'Home';

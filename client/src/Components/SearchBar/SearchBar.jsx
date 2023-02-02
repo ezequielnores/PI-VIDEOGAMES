@@ -9,14 +9,23 @@ const SearchBar = ({ index, setIndex }) => {
 
     const inputChangeHandler = (event) => {
         event.preventDefault()
+
         setInput((prev) => event.target.value)
+        
+        console.log(event.target.value);
     };
 
     const SearchHandler = (e) => {
+
         e.preventDefault();
-        setIndex(prev => 0)
+
+        setIndex(prev => 0);
+
         dispatch(cleanStateFilter());
+
+        
         dispatch(getGameByName(input));
+
         setInput(prev => '');
     };
 
@@ -24,7 +33,7 @@ const SearchBar = ({ index, setIndex }) => {
         <div>
             <form >
                 <input className={style.input_search } placeholder="Name" type="text" value={input} onChange={inputChangeHandler}/>
-                <input className={style.btn_search} type="submit" name='Search' value='Search' onClick={SearchHandler} />
+                <input disabled={ input.length <= 3 ? true : false } className={ input.length > 3 ?  style.btn_search : style.btn_searchERROR } type="submit" name='Search' value='Search' onClick={SearchHandler} />
             </form>
             
         </div>

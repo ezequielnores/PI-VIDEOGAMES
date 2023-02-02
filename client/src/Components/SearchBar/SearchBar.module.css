@@ -24,3 +24,16 @@
 .input_search::placeholder{
     font-size: 18px;
 }
+
+
+.btn_searchERROR{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;  
+}
+
+.btn_searchERROR:hover{
+    cursor: no-drop;
+}

@@ -36,13 +36,15 @@ export const getGamesById =  (id) => {
     return async function(dispatch){
        await axios.get(`http://localhost:3001/videogames/${id}`)
         .then(response => dispatch({ type: GET_GAME_BY_ID, payload: response.data }))
+        .catch((error) => dispatch({ type: GET_GAME_BY_ID, payload: `Error: ${error.message}`}))
     }
 };
 
 export const getGameByName = (name) => {
     return async function(dispatch){
         await axios.get(`http://localhost:3001/videogames?name=${name}`)
-        .then( (response) => dispatch({ type: GET_GAME_BY_NAME, payload: response.data }) );
+        .then( (response) => dispatch({ type: GET_GAME_BY_NAME, payload: response.data }) )
+        .catch((error) => dispatch({ type: GET_GAME_BY_NAME, payload: `Error: ${error.message}` }));
     }
 };
 

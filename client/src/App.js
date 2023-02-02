@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { useEffect } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 import Home from './Components/Home/Home.jsx';
@@ -12,6 +13,8 @@ import Footer from './Components/Footer/Footer';
 
 function App() {
   const dispatch = useDispatch();
+
+    const[index, setIndex] = React.useState(0);  
 
     useEffect(() => {
       dispatch(getGames());
@@ -29,7 +32,7 @@ function App() {
 
       <Route path='/home' component={ NavBar } />
 
-      <Route exact path='/home' render={ () => <Home /> } />
+      <Route exact path='/home' render={ () => <Home  index={index} setIndex={setIndex} /> } />
 
       <Route exact path='/home/detail/:id' render={( { match } ) => <Detail  id={ match.params.id } />} />
 

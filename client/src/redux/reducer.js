@@ -16,44 +16,26 @@ import {
     CLEAN_STATE_FILTERED
 } from './actions';
 
-const initialState = {
-    games: [],
-    filtered: [],
-    genres: [],
-    getByName: [],
-    getById: [],
-    platforms: [],
-    namesGames: [],
+    const DESCENDENT = 'DESCENDENT';
+    const ASCENDENT = 'ASCENDENT';
 
-};
+    const initialState = {
+        games: [],
+        filtered: [],
+        genres: [],
+        getByName: [],
+        getById: [],
+        platforms: [],
+        namesGames: [],
+    };
 
 const reducer = (state = initialState, action) => {
 
-    const ratingOrderDecrement = (array) => {
-            if(array.length < 1) return array;
-            let right = []; 
-            let left = []; 
-            let pivote = array[0];
 
-            for(let i = 1; i < array.length; i++){ 
-                if(pivote.rating > array[i].rating) left.push(array[i]);
-                else right.push(array[i]);
-            };
-            return [].concat(ratingOrderDecrement(right), pivote, ratingOrderDecrement(left));
-    }; 
-    const ratingOrderAscendent = (array) => {
-            if(array.length < 1) return array;
-            let pivote = array[0];
-            let right = [];  
-            let left = []; 
-        for(let i = 1; i < array.length; i++){
-              if(pivote.rating > array[i].rating) left.push(array[i]);
-              else right.push(array[i]);
-        };
-        return [].concat(ratingOrderAscendent(left), pivote, ratingOrderAscendent(right));
-    };
+
     const divideStateForPagination = (array) => {
         if( typeof(array) === 'string' ) return array;
+
         const response = []; 
         let actual = [];
     
@@ -69,16 +51,56 @@ const reducer = (state = initialState, action) => {
                 response.push( actual );
             };
         });
+        
         return response;
     };
     const planeArray = (array) => {
         return array.reduce((acc, el) => acc = [ ...acc, ...el ], [] );
     };
+
+    // const ratingOrderDecrement = (array) => {
+    //         if(array.length < 1) return array;
+    //         let right = []; 
+    //         let left = []; 
+    //         let pivote = array[0];
+
+    //         for(let i = 1; i < array.length; i++){ 
+    //             if(pivote.rating > array[i].rating) left.push(array[i]);
+    //             else right.push(array[i]);
+    //         };
+    //         return [].concat(ratingOrderDecrement(right), pivote, ratingOrderDecrement(left));
+    // }; 
+
+    const ratingOrder = (array, option ) => {
+
+            if(array.length < 1) return array;
+
+            const right = [];  
+            const left = []; 
+            const pivote = array[0];
+
+        for(let i = 1; i < array.length; i++){
+            if(pivote.rating > array[i].rating) left.push(array[i]);
+            else right.push(array[i]);
+        };
+
+        if(option === 'ASCENDENT'){
+            return [].concat(ratingOrder(left, option), pivote, ratingOrder(right, option));
+        }
+        if(option === 'DESCENDENT'){
+            return [].concat(ratingOrder(right, option), pivote, ratingOrder(left, option));
+        }
+    };
+    
+    
+
+
     const alphabeticOrderDecrement = (array) => {
         if(array.length < 1) return array;
-        let right = [];
-        let left = [];
-        let pivote = array[0];
+        const right = [];
+        const left = [];
+        const pivote = array[0];
+
         for(let i = 1; i < array.length; i++){
           if(pivote.name[0] > array[i].name[0]){
               left.push(array[i])
@@ -169,7 +191,7 @@ const reducer = (state = initialState, action) => {
 
         case FILTER_RATING_ASCENDENT: {
             const plane = planeArray(state.filtered);
-            const response = ratingOrderAscendent(plane);
+            const response = ratingOrder(plane, ASCENDENT);
               return {
                 ...state,
                 filtered: divideStateForPagination(response),
@@ -178,7 +200,7 @@ const reducer = (state = initialState, action) => {
 
         case FILTER_RATING_DECREMENT: {
               const plane = planeArray(state.filtered);
-              const response = ratingOrderDecrement(plane)
+              const response = ratingOrder(plane, DESCENDENT)
             return {
                 ...state,
                 filtered: divideStateForPagination(response)

@@ -5,6 +5,7 @@ import { filterByGenre, filterByRatingDecrement, filterByRatingAscendent, showAl
 
 const Filters = ({ index, setIndex }) => {
     const stateGenres = useSelector(state => state.genres);
+    const stateFiltered = useSelector(state => state.filtered)
     const dispatch = useDispatch();   
     const[selected, setSelected] = React.useState({ genres: "", filter_existing:"", filter_order:"" })
 
@@ -18,18 +19,19 @@ const Filters = ({ index, setIndex }) => {
     };
 
     const OnChangeHandler = (event) => {
-
-            setSelected({ ...selected, filter_order: event.target.value });
-            setIndex((prev) => 0);
+        setSelected({ ...selected, filter_order: event.target.value });
+        setIndex((prev) => 0);
         
-            switch (event.target.value) {
-                case 'ALL': return dispatch( showAll() );
-                case "Better Rankeds" : return dispatch( filterByRatingDecrement() );
-                case "Less Rankeds" :return dispatch( filterByRatingAscendent() );
-                case 'Z-A': return dispatch( filterAlphabeticDecrement() );
-                case 'A-Z': return dispatch( filterAlphabeticAscendent() );
-                default: break;
-            };
+            if( Array.isArray(stateFiltered) && stateFiltered.length !== 0 ){
+                switch (event.target.value) {
+                    case 'ALL': return dispatch( showAll() );
+                    case "Better Rankeds" : return dispatch( filterByRatingDecrement() );
+                    case "Less Rankeds" :return dispatch( filterByRatingAscendent() );
+                    case 'Z-A': return dispatch( filterAlphabeticDecrement() );
+                    case 'A-Z': return dispatch( filterAlphabeticAscendent() );
+                    default: break;
+                };
+            }
     };
 
     const filterByExistent = (event) => {
@@ -54,17 +56,18 @@ const Filters = ({ index, setIndex }) => {
             }
         });
         dispatch( showAll());
-    }
+    };
+
     return (
         <div>
             <div>
                     <button className={style.btn_all_games} onClick={() => resetFilteredState() }>Show all games</button>
 
                     <select className={style.all_select} name="GENRES" id="search-by-genre" value={selected.genres}  onChange={genreOnChangeHandler}>
-                            <option value="ALL"> Genres </option>
-                    {
-                        stateGenres.map((genre) => <option value={genre.name} key={genre.id} > {genre.name} </option>)
-                    }
+                        <option value="ALL"> Genres </option>
+                        {
+                            stateGenres.map((genre) => <option value={genre.name} key={genre.id} > {genre.name} </option>)
+                        }
                     </select>
 
                     <select className={style.all_select} name="FILTER_EXISTING" id="search-by-existing" value={selected.filter_existing} onChange={filterByExistent}>

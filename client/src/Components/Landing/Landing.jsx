@@ -6,7 +6,7 @@ const Landing = () => {
     React.useEffect(() => {
         document.title = 'Welcome';
       }, []);
-      
+    
     return (    
         <div className={style.landing_div} >
 

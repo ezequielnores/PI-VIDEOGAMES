@@ -9,8 +9,14 @@
     width: 100%;
     height: 100%;
     background-repeat: none;
-    background-attachment: fixed;
+    /* background-attachment:fixed; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
 };
+
 
 .link{
     text-decoration: none;
@@ -21,10 +27,13 @@
     background-color: rgb(150, 50, 50);
     border-radius: 10px;
     color: white;
+
 } 
+
 
 .btn_start:hover{
     cursor:pointer;
+    background-color: rgb(123, 66, 66);;
 }
 
 
@@ -32,6 +41,12 @@
     color: white;
     font-size: 85px;
     text-shadow:7px 7px black;
+    animation: header 2s infinite;
+}
+
+@keyframes header {
+    from { opacity: 0.1; }
+    to { opacity: 1; }
 }
 
 

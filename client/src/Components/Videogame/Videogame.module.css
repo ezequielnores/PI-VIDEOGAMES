@@ -1,5 +1,6 @@
 .div_videogame_card{
     
+    
     width: 18em;
     display: flex;
     flex-direction: column;
@@ -8,8 +9,16 @@
     border: 1px solid grey;
     margin-bottom: 20px;
     color: #f0f6fc;
-    
+    /* animation: rendering 2s ; */
+
 }
+
+/* @keyframes rendering {
+    from { opacity: 0.1; }
+    to { opacity: 1; }    
+    from {  }
+    to {  }
+} */
 
 .div_videogame_card:hover{
     background-color: #3c3f4f;

@@ -1,0 +1,15 @@
+.other_options{
+    color: #f0f6fc;
+    padding: 20px;
+    height: 400px;
+    animation: loader 1s infinite;
+}
+@keyframes loader {
+    from { 
+        opacity: 0.1;
+    }
+    to {
+        opacity: 1;
+    }
+    
+}
