@@ -2,7 +2,7 @@
 
 .landing_div{
     border-top: 0px;
-    background-image: url(https://images2.alphacoders.com/268/268700.png);
+    background-image: url(https://images.unsplash.com/photo-1585620385456-4759f9b5c7d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
     background-position:center;
     background-size: cover;
     position: absolute;
@@ -27,6 +27,7 @@
     background-color: rgb(150, 50, 50);
     border-radius: 10px;
     color: white;
+    border:none;
 
 } 
 
@@ -40,8 +41,11 @@
 .header_welcome{
     color: white;
     font-size: 85px;
-    text-shadow:7px 7px black;
+    text-shadow:2px 2px black;
     animation: header 2s infinite;
+    /* text-shadow: 3px 3px solid white; */
+    /* fill: white; stroke: #000; stroke-width: 3px; */
+    
 }
 
 @keyframes header {

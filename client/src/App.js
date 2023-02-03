@@ -22,13 +22,12 @@ function App() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // const { pathname } = useLocation();
-    const location = useLocation();
-    console.log(location);
+    const { pathname } = useLocation();
+   
   return (
     <div className="App">
       
-      { location.pathname === '/' ? <Route exact path='/' component={ Landing } /> : null }
+      { pathname === '/' ? <Route exact path='/' component={ Landing } /> : null }
 
       <Route path='/home' component={ NavBar } />
 

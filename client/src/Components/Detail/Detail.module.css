@@ -31,16 +31,17 @@
     padding: 15px;
     background-color: #010409;
     color: #f0f6fc;
+    height: 85vh;
 }
 
 .other_options{
     background-color: #010409;
     color: #f0f6fc;
     padding: 20px;
-    height: 700px;
+    height: 84vh;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .go_back:hover{
@@ -52,6 +53,7 @@
     width: 600px;
     margin: 15px;
     border-radius: 5px;
+    max-height: 600px;
 }
 
 .detail_container{

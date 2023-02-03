@@ -12,7 +12,6 @@ const SearchBar = ({ index, setIndex }) => {
 
         setInput((prev) => event.target.value)
         
-        console.log(event.target.value);
     };
 
     const SearchHandler = (e) => {

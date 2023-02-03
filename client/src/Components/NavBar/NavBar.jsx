@@ -6,7 +6,7 @@ const NavBar = () => {
     return (
         <nav className={style.nav_container}>
             <div>
-                <h1> Videogames App </h1>
+                <h1 className={style.h1}> Videogames App </h1>
             </div>
             <div>
                 

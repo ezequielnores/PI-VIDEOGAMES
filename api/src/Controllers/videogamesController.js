@@ -5,16 +5,20 @@ const { API_KEY } = process.env;
 const { Videogame, Genre } = require('../db.js');
 
 const responseTransformer = (array) => {
-    if(array.length === 0) return array;
+    
+    if(Array.isArray(array) && array.length === 0) return array;
+    if(typeof array === 'string ') return array;
+    
     return array.map(videogame => {
+       console.log({ genres : videogame.genres, })
         return {
             id:videogame.id,
             name: videogame.name,
             rating: videogame.rating,
             img: videogame.background_image,
             released: videogame.released,
-            platforms: videogame.platforms.map(obj => obj.platform.name),
-            genres: videogame.genres.map(genre => genre.name),
+            platforms: Array.isArray(videogame.platforms) ?  videogame.platforms.map(obj => obj.platform.name) : [],
+            genres:  videogame.genres.length === 0 ? [] : videogame.genres.map(genre => genre.name),
             created: false
         }
     });
@@ -59,23 +63,28 @@ const getGamesFromDb = async () => {
 
 const getGamesByName = async (name) => {
         const gamesByName = await Promise.all([ getGamesByNameFromBd(name), getGamesByNameFromApi(name)])
-            .then(r => [ ...r[0], ...r[1] ]);
-                
+            .then(r => [ ...r[0], ...r[1] ]).catch(error => [error.message])
+        
         return gamesByName.length > 0 ? gamesByName : 'Sorry, cant find that' ; 
 };
 
 const getGamesByNameFromApi = async (name) => {
+                                                 // 'https://api.rawg.io/api/games?search=josias ezequiel nores&key=3dcc994cc37b4d09bff762888829af87'
     const videogamesByNameFromApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-            .then( res => responseTransformer(res.data.results) );
+            .then( res =>  responseTransformer(res.data.results) )
+            .catch((error) => {
+                console.log(`ErrorApi: ${error.message}`);
+                return `Errorapi: ${error.message}`
+            });
 
     return videogamesByNameFromApi;
-}
+};
 
 const getGamesByNameFromBd = async (name) => {
 
     const videogamesByNameFromDb = await Videogame.findAll({
         where: {
-            name: {  
+            name: {
                 [Op.iLike]: `%${name}%`  
             }
         },
@@ -88,6 +97,7 @@ const getGamesByNameFromBd = async (name) => {
          }
     })
     .then(r => {
+        console.log(r);
         return r.map(obj => {
             return {
                 ...obj.dataValues,
@@ -95,6 +105,9 @@ const getGamesByNameFromBd = async (name) => {
                 genres: obj.dataValues.Genres.map(genre => genre.dataValues.name)
             }
         })
+    }).catch((error) => {
+        console.log(`ErrorBDD: ${error.message}`);
+        return `Errorbdd: ${error.message}`
     });
     return videogamesByNameFromDb;
 }
@@ -174,5 +187,7 @@ module.exports = {
     getGameById,
     postGame,
     getAllGames,
-    deleteGame
+    deleteGame,
+    getGamesByNameFromApi,
+    getGamesByNameFromBd
 };

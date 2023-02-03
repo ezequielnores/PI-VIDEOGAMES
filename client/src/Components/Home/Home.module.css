@@ -6,8 +6,9 @@
 }
 
 .home_container{
-    background-color: #010409;
+    /* background-color: #010409; */
     margin-bottom: 0px;
+    background: #010409 no-repeat fixed ;
 }
 
 hr.horizontal_line{

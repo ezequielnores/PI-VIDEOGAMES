@@ -10,7 +10,7 @@
     margin-bottom: 20px;
     color: #f0f6fc;
     /* animation: rendering 2s ; */
-
+    
 }
 
 /* @keyframes rendering {
@@ -32,6 +32,7 @@
 
 .imagen_home{
     width: 18em;
+    max-height: 18em;
     /* width: 370px; */
     
 }

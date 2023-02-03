@@ -74,7 +74,6 @@ const Filters = ({ index, setIndex }) => {
                         <option key='1' value="ALL"> All </option>
                         <option key='2' value="CREATED"> Created </option>
                         <option key='3' value="EXISTING"> Existing </option>
-
                     </select>
 
                     <select className={style.all_select} name="FILTER_ORDER" id="search-by-order" value={selected.filter_order} onChange={OnChangeHandler}>
@@ -84,6 +83,7 @@ const Filters = ({ index, setIndex }) => {
                         <option key='4' value="A-Z"> A - Z </option>
                         <option key='5' value="Z-A"> Z - A </option>
                     </select>
+                    
                 </div>
         </div>
     )

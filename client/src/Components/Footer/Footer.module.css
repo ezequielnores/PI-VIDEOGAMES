@@ -4,8 +4,25 @@
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 20px;
+    position: sticky; 
+    text-align: center; 
+    width: 100%; 
+    bottom: 0px; 
+    
 }
 
 .name_h2{
     margin: 0px;
+}
+
+.footer_raro{
+    background-color: #282A3A;
+    color: #f0f6fc;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 20px;
+    position: absolute; 
+    text-align: center; 
+    width: 100%; 
+    bottom: 0px;
 }

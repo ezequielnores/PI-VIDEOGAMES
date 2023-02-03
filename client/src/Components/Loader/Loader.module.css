@@ -1,7 +1,7 @@
 .other_options{
     color: #f0f6fc;
     padding: 20px;
-    height: 400px;
+    height: 90vh;
     animation: loader 1s infinite;
 }
 @keyframes loader {

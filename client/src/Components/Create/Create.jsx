@@ -10,7 +10,7 @@ const Create = () => {
         document.title = 'Create Videogame!';
       }, []);
 
-    console.log('reset');
+    
     const dispatch = useDispatch();
     const stateGenres = useSelector(state => state.genres);
     const platformas = useSelector(state => state.platforms);
@@ -222,40 +222,39 @@ const Create = () => {
     };
 
     return (
-        <div className={style.div_container}>
-            
+    <div className={style.div_container}>
+            <div className={style.div_container_form}>
+
                 <div className={style.div_subcontainer}>
                     <form className={style.form_inputs} id="form-inputs"> 
 
-                            <div>
+                        <div>
                                 <label  htmlFor="name"> Name: </label>
                                 <input className={style.input_name_description} name='name' placeholder="name" type="text" value={form.name} onChange={ handleFormInputs } />
-                            </div>
-                            <div className={style.show_error}> {error.name} </div>
+                        </div>
+                        <div className={style.show_error}> {error.name} </div>
 
-                            <div>
-                                <label htmlFor="description">Description: </label>
-                                <input className={style.input_name_description}  name='description' placeholder="description" type="text" value={form.description} onChange={ handleFormInputs } />
-                            </div>
-                            <div className={style.show_error}> { error.description } </div>
+                        <div>
+                            <label htmlFor="description">Description: </label>
+                            <input className={style.input_name_description}  name='description' placeholder="description" type="text" value={form.description} onChange={ handleFormInputs } />
+                        </div>
+                        <div className={style.show_error}> { error.description } </div>
                             
 
-                            <div>
-                                <label htmlFor="released">Released: </label>
-                                <input className={style.date_only} type="number" placeholder="dd" name="day" value={date.day} onChange={dateHandler} min='0' max='31' /> / 
-                                <input className={style.date_only} type="number" placeholder="mm" name="month" value={date.month} onChange={dateHandler} min='1' max='12' /> / 
-                                <input className={style.date_only} type="number" placeholder="yyyy" name="year" value={date.year} onChange={dateHandler} min='1950' max='2023' />
-                            </div>
-                            <div className={style.show_error}> { error.released } </div>
-                            
+                        <div>
+                            <label htmlFor="released">Released: </label>
+                            <input className={style.date_only} type="number" placeholder="dd" name="day" value={date.day} onChange={dateHandler} min='0' max='31' /> / 
+                            <input className={style.date_only} type="number" placeholder="mm" name="month" value={date.month} onChange={dateHandler} min='1' max='12' /> / 
+                            <input className={style.date_only} type="number" placeholder="yyyy" name="year" value={date.year} onChange={dateHandler} min='1950' max='2023' />
+                        </div>
+                        <div className={style.show_error}> { error.released } </div> 
 
-                            <div>
-                                <label htmlFor="rating">Rating: </label>
-                                <input className={style.rating} name='rating' type="range" value={form.rating}  min="0.1" max="5" step='0.1' onChange={ handleFormInputs } />   <div>{ form.rating } ⭐</div>
-                            </div>
-                            <div className={style.show_error}> { error.rating } </div>
+                        <div>
+                            <label htmlFor="rating">Rating: </label>
+                            <input className={style.rating} name='rating' type="range" value={form.rating}  min="0.1" max="5" step='0.1' onChange={ handleFormInputs } />   <div>{ form.rating } ⭐</div>
+                        </div>
+                        <div className={style.show_error}> { error.rating } </div>
                             
-
                     </form>
                 </div>
 
@@ -293,12 +292,12 @@ const Create = () => {
                                 { form.platforms.map(platform => <div className={style.array_selected} key={platform} > {platform}  <button className={style.btn_close}  onClick={() => deletePlatform(platform)} >X</button> </div>) }
                             </div>
                 </div>
-                            
-                <div className={style.div_subcontainer}>
-                        <button className={style.btn_create} onClick={onSubmitHandler} > Create </button>
-                </div>
 
-        </div>
+            </div>
+            <div className={style.div_subcontainer}>
+                <button className={style.btn_create} onClick={onSubmitHandler} > Create </button>
+            </div>
+    </div>
     )
 };
 
