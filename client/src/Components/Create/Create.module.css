@@ -8,6 +8,25 @@
     
 }
 
+.container_go_back{
+    display: flex;
+}
+
+.go_back{
+    padding: 7px;
+    font-size: 18px;
+    background-color: #1F6FEB;
+    border-radius: 6px;
+    color: #f0f6fc;
+    border: none;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.go_back:hover{
+    background-color: #3e86f1;
+    cursor: pointer;
+}
 
 .div_container_form{
     display: flex;

@@ -15,8 +15,6 @@ const Create = () => {
     const stateGenres = useSelector(state => state.genres);
     const platformas = useSelector(state => state.platforms);
     const namesGames = useSelector(state => state.namesGames);
-    
-    
 
     const[date, setDate] = React.useState({
         year: '',
@@ -49,7 +47,6 @@ const Create = () => {
     
 
 
-
     const handleSelectGenres = (e) => {
         setSelected({ ...selected, genres: e.target.value })
 
@@ -66,11 +63,11 @@ const Create = () => {
                 genre: [...form.genre, { id: parseInt(id), name }]
             });
             setError({...error, genre: ""});
-            // handleCreateButton({...error, genre: ""});
+       
 
         } else {
             setError({ ...error, genre: `${name} is already selected` });
-            // handleCreateButton({ ...error, genre: `${name} is already selected` });
+
         };
         
     };
@@ -223,6 +220,11 @@ const Create = () => {
 
     return (
     <div className={style.div_container}>
+
+            <div className={style.container_go_back}>
+                <button className={style.go_back} onClick={() => window.history.back()}>Go Back</button>
+            </div>
+
             <div className={style.div_container_form}>
 
                 <div className={style.div_subcontainer}>

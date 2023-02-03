@@ -19,7 +19,7 @@ const VideogamesContainer = ({ index, setIndex }) => {
             case '-': 
             setIndex(prev => prev - 1);
             break;
-
+            
             case '-1':
             setIndex(prev => stateRedux.length - 1);
             break;
@@ -31,7 +31,7 @@ const VideogamesContainer = ({ index, setIndex }) => {
             default: return 'noting';
         }
 
-        if(action !== '-1' && action !== '1' ) window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
 
