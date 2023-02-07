@@ -10,6 +10,7 @@ import Detail from './Components/Detail/Detail.jsx';
 import NavBar from './Components/NavBar/NavBar.jsx';
 import Create from './Components/Create/Create';
 import Footer from './Components/Footer/Footer';
+import Favorites from './Components/Favorites/Favorites.jsx'
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,8 @@ function App() {
       <Route exact path='/home/detail/:id' render={( { match } ) => <Detail  id={ match.params.id } />} />
 
       <Route exact path='/home/create' component={Create} />
+
+      <Route exact path='/home/favorites' render={() => <Favorites /> } />
 
       <Route path='/home' render={() => <Footer />} />
       

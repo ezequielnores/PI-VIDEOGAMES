@@ -13,6 +13,8 @@ const NavBar = () => {
                     <Link to='/home'  className={style.option_menu}> Home </Link>
                 
                     <Link to='/home/create' className={style.option_menu}> Create </Link>
+
+                    <Link to='/home/favorites'  className={style.option_menu}> Favorites </Link>
                 
             </div>
         </nav>

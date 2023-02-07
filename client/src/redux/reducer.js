@@ -13,7 +13,9 @@ import {
     FILTER_ALPHABETIC_ASCENDENT,
     FILTER_ALPHABETIC_DECREMENT,
     GET_PLATFORMS,
-    CLEAN_STATE_FILTERED
+    CLEAN_STATE_FILTERED,
+    ADD_FAVORITES,
+    ALL_GAMES_AGAIN
 } from './actions';
 
     const DESCENDENT = 'DESCENDENT';
@@ -27,11 +29,11 @@ import {
         getById: [],
         platforms: [],
         namesGames: [],
+        favorites: [],
+        allGamesAgain: []
     };
 
 const reducer = (state = initialState, action) => {
-
-
 
     const divideStateForPagination = (array) => {
         if( typeof(array) === 'string' ) return array;
@@ -54,22 +56,10 @@ const reducer = (state = initialState, action) => {
         
         return response;
     };
+
     const planeArray = (array) => {
         return array.reduce((acc, el) => acc = [ ...acc, ...el ], [] );
     };
-
-    // const ratingOrderDecrement = (array) => {
-    //         if(array.length < 1) return array;
-    //         let right = []; 
-    //         let left = []; 
-    //         let pivote = array[0];
-
-    //         for(let i = 1; i < array.length; i++){ 
-    //             if(pivote.rating > array[i].rating) left.push(array[i]);
-    //             else right.push(array[i]);
-    //         };
-    //         return [].concat(ratingOrderDecrement(right), pivote, ratingOrderDecrement(left));
-    // }; 
 
     const ratingOrder = (array, option ) => {
 
@@ -111,6 +101,7 @@ const reducer = (state = initialState, action) => {
         
         return [].concat(alphabeticOrderDecrement(right), pivote, alphabeticOrderDecrement(left));
     };
+
     const alphabeticOrderAscendent = (array) => {
         if(array.length < 1) return array;
         let right = [];
@@ -240,6 +231,33 @@ const reducer = (state = initialState, action) => {
             ...state,
             filtered: []
         };
+
+        case ADD_FAVORITES: {
+            let condition = false;
+            if(state.favorites.length !== 0){
+
+                state.favorites.forEach((obj) => {
+                    if(obj.id === action.payload.id){
+                        condition = true;
+                    }
+                });
+
+            }
+            
+            return {
+                ...state,
+                filtered: condition ?  state.favorites.filter(obj => obj !== action.payload.id) : state.favorites.push(action.payload)
+            };
+        };
+
+        case ALL_GAMES_AGAIN: {
+            return {
+                ...state,
+                allGamesAgain: action.payload,
+            }
+        }
+
+
 
         default: return {
             ...state

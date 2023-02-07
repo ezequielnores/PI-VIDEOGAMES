@@ -1,23 +1,20 @@
 const { Router } = require('express');
 require('dotenv').config();
 const videogamesRouter = Router();
-const {getGamesByName, getGameById, postGame, deleteGame, getAllGames, getGamesByNameFromApi, getGamesByNameFromBd } = require('../Controllers/videogamesController');
+const {getGamesByName, getGameById, postGame, deleteGame, getAllGames } = require('../Controllers/videogamesController');
 
 videogamesRouter.get('/', async (req, res) => {
     try {
         const { name } = req.query;
         if(name){
-            console.log(name);
             const videoGamesByName = await getGamesByName(name);
-            // const videoGamesByName = await getGamesByNameFromApi(name);
-            // const videoGamesByName = await getGamesByNameFromBd(name);
             res.status(200).send(videoGamesByName)
         } else{
             const allVideogames = await getAllGames();
             res.status(200).send(allVideogames);
         };
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send(`Error: ${error.message}`);
     }
 });
 
@@ -27,7 +24,7 @@ videogamesRouter.get('/:id', async (req,res) => {
         res.status(200).send(videogameById);
         
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(400).send(`Error: ${error.message}`)
     }
 })
  
@@ -37,7 +34,7 @@ try {
     res.status(200).send(created)
 
 } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(`Error: ${error.message}`);
 }
 });
 

@@ -14,6 +14,8 @@ export const FILTER_ALPHABETIC_DECREMENT = 'FILTER_ALPHABETIC_DECREMENT';
 export const FILTER_ALPHABETIC_ASCENDENT = 'FILTER_ALPHABETIC_ASCENDENT'; 
 export const GET_PLATFORMS = 'GET_PLATFORMS'; 
 export const CLEAN_STATE_FILTERED = 'CLEAN_STATE_FILTERED'; 
+export const ADD_FAVORITES = 'ADD_FAVORITES'; 
+export const ALL_GAMES_AGAIN = 'ALL_GAMES_AGAIN'; 
 
 
 
@@ -24,6 +26,13 @@ export const getGames = () => {
             .catch(error => dispatch({ type: GET_GAMES , payload: `Error: ${error.message}, please reload the page` }))
     };
 };
+
+export const getAllGamesAgain=()=> {
+    return function(dispatch){
+        axios.get('http://localhost:3001/videogames')
+        .then(response => dispatch({ type: ALL_GAMES_AGAIN, payload: response.data }))
+    }
+}
 
 export const getGenres = () => {
     return async function(dispatch){
@@ -88,5 +97,10 @@ export const filterAlphabeticAscendent = () => {
 
 export const cleanStateFilter = () => {
     return { type: CLEAN_STATE_FILTERED };
+}
+
+
+export const addFavorites = (game)  => {
+    return { type: ADD_FAVORITES, payload: game }
 }
 

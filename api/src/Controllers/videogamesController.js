@@ -69,7 +69,7 @@ const getGamesByName = async (name) => {
 };
 
 const getGamesByNameFromApi = async (name) => {
-                                                 // 'https://api.rawg.io/api/games?search=josias ezequiel nores&key=3dcc994cc37b4d09bff762888829af87'
+    
     const videogamesByNameFromApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
             .then( res =>  responseTransformer(res.data.results) )
             .catch((error) => {
