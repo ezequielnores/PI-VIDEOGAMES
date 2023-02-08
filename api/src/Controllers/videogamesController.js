@@ -10,7 +10,6 @@ const responseTransformer = (array) => {
     if(typeof array === 'string ') return array;
     
     return array.map(videogame => {
-       console.log({ genres : videogame.genres, })
         return {
             id:videogame.id,
             name: videogame.name,
@@ -73,7 +72,6 @@ const getGamesByNameFromApi = async (name) => {
     const videogamesByNameFromApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
             .then( res =>  responseTransformer(res.data.results) )
             .catch((error) => {
-                console.log(`ErrorApi: ${error.message}`);
                 return `Errorapi: ${error.message}`
             });
 
@@ -97,7 +95,6 @@ const getGamesByNameFromBd = async (name) => {
          }
     })
     .then(r => {
-        console.log(r);
         return r.map(obj => {
             return {
                 ...obj.dataValues,
@@ -106,7 +103,6 @@ const getGamesByNameFromBd = async (name) => {
             }
         })
     }).catch((error) => {
-        console.log(`ErrorBDD: ${error.message}`);
         return `Errorbdd: ${error.message}`
     });
     return videogamesByNameFromDb;
@@ -128,7 +124,7 @@ const getGameById = async ({ id }) => {
                         description: res.data.description,
                         created: false
                 }];
-            }).catch(err => 'Sorry, cant find that')
+            }).catch(err => `Error: ${err.message}`)
             
             return requestById;
         }

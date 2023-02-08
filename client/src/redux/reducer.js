@@ -234,6 +234,7 @@ const reducer = (state = initialState, action) => {
 
         case ADD_FAVORITES: {
             let condition = false;
+
             if(state.favorites.length !== 0){
 
                 state.favorites.forEach((obj) => {
@@ -242,14 +243,14 @@ const reducer = (state = initialState, action) => {
                     }
                 });
 
-            }
+            };
             
             return {
                 ...state,
-                filtered: condition ?  state.favorites.filter(obj => obj !== action.payload.id) : state.favorites.push(action.payload)
+                favorites: condition ?  state.favorites.filter(obj => obj.id !== action.payload.id) : [ ...state.favorites, action.payload ]
             };
         };
-
+        
         case ALL_GAMES_AGAIN: {
             return {
                 ...state,

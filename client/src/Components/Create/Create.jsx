@@ -131,7 +131,7 @@ const Create = () => {
             return condition; 
         }
         else{
-            axios.post('http://localhost:3001/videogames', {
+            axios.post('/videogames', {
                 ...form,
                 released: form.released.split('-').reverse().join('/'),
                 genre: form.genre.map(obj => obj.id),

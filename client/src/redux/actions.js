@@ -21,7 +21,7 @@ export const ALL_GAMES_AGAIN = 'ALL_GAMES_AGAIN';
 
 export const getGames = () => {
      return async function(dispatch){
-        await axios.get('http://localhost:3001/videogames')
+        await axios.get('/videogames')
             .then(response => dispatch({ type: GET_GAMES , payload: response.data }))
             .catch(error => dispatch({ type: GET_GAMES , payload: `Error: ${error.message}, please reload the page` }))
     };
@@ -29,21 +29,21 @@ export const getGames = () => {
 
 export const getAllGamesAgain=()=> {
     return function(dispatch){
-        axios.get('http://localhost:3001/videogames')
+        axios.get('/videogames')
         .then(response => dispatch({ type: ALL_GAMES_AGAIN, payload: response.data }))
     }
 }
 
 export const getGenres = () => {
     return async function(dispatch){
-        await axios.get('http://localhost:3001/genres')
+        await axios.get('/genres')
             .then(response => dispatch({ type: GET_GENRES, payload: response.data }));
     };
 };
 
 export const getGamesById =  (id) => {
     return async function(dispatch){
-       await axios.get(`http://localhost:3001/videogames/${id}`)
+       await axios.get(`/videogames/${id}`)
         .then(response => dispatch({ type: GET_GAME_BY_ID, payload: response.data }))
         .catch((error) => dispatch({ type: GET_GAME_BY_ID, payload: `Error: ${error.message}`}))
     }
@@ -51,7 +51,7 @@ export const getGamesById =  (id) => {
 
 export const getGameByName = (name) => {
     return async function(dispatch){
-        await axios.get(`http://localhost:3001/videogames?name=${name}`)
+        await axios.get(`/videogames?name=${name}`)
         .then( (response) => dispatch({ type: GET_GAME_BY_NAME, payload: response.data }) )
         .catch((error) => dispatch({ type: GET_GAME_BY_NAME, payload: `Error: ${error.message}` }));
     }
@@ -97,10 +97,9 @@ export const filterAlphabeticAscendent = () => {
 
 export const cleanStateFilter = () => {
     return { type: CLEAN_STATE_FILTERED };
-}
+};
 
 
 export const addFavorites = (game)  => {
     return { type: ADD_FAVORITES, payload: game }
-}
-
+};

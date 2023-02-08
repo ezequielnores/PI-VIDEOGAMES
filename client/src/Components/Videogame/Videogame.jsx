@@ -11,13 +11,21 @@ const Videogame = ({ id, name, genres, imgn, rating }) => {
         // <Link className={style.link_container} to={`/home/detail/${id}`}>
 
             <div className={style.div_videogame_card}>
+                
                 <div className={style.container}>
-                    <button onClick={() => { dispatch(addFavorites({ id, name, genres, imgn, rating })) }}>+⭐</button>
+
+                    <button onClick={() => dispatch(addFavorites({ id, name, genres, imgn, rating })) }>+⭐</button>
+
                     { imgn ? <img src={imgn} alt="videogame" className={style.imagen_home} /> : <img className={style.imagen_home} src="https://virtualbackgrounds.site/wp-content/uploads/2020/07/super-mario-bros-level-ending.jpg" alt="icon" /> }
+
                 </div>
-                <Link className={style.link_container}> <p>{name}</p> </Link>
+
+                <Link  to={`/home/detail/${id}`} className={style.link_to_detail}> <p>{name}</p> </Link>
+
                 <p>Rating: {rating} </p>
+
                 <p>Genres: { genres.join(", ") } </p>
+
             </div>
     )
 };

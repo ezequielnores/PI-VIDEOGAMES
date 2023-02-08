@@ -11,6 +11,11 @@
     color: #f0f6fc;
     /* animation: rendering 2s ; */
 }
+.link_to_detail{
+    text-decoration:none;
+    color: white;
+
+}
 
 .container{
     position: relative;
@@ -26,7 +31,7 @@
 
 .div_videogame_card:hover{
     background-color: #3c3f4f;
-    text-decoration:double;
+    text-decoration:none;
 }
 
 .link_container{

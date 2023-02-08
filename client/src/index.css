@@ -8,7 +8,6 @@ body {
 }
 div{
   animation: rendering 1s ;
-  
 }
 
 @keyframes rendering {
